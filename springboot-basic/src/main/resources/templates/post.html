@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Spring Blog</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #aac4f2;
+            color: black;
+        }
+        .post-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .post {
+            width: 22%;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            box-shadow: 0 0 5px gray;
+            background: darkcyan;
+        }
+
+        .post-header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .post-body {
+            margin-top: 10px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .add-post-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Welcome to Spring Blog</h1>
+<div class="add-post-link">
+    <a href="/v1/posts/add">Add new Post</a>                   <!--    "post/add"        will also work.Check below**-->
+</div>
+
+<div class="post-container">
+    <div class="post" th:each="post: ${posts}">
+        <ul class="post-body">
+            <li class="post-header"><h3 th:text="${post.title}"></h3></li>
+            <li><h4 th:text="${post.description}"></h4></li>
+            <li><h4 th:text="${post.body}"></h4></li>
+            <li><a th:href="@{'/v1/posts/edit/' + ${post.id}}">Edit</a></li>
+            <!--            <li><a th:href="@{'/v1/posts/delete/' + ${post.id}}">Delete</a></li>  if by GETMapping      added-->
+        </ul>
+
+
+    <div>
+            <form th:action="@{'/v1/posts/delete/' + ${post.id}}" method="post">
+            <input type="submit" value="Delete">
+            </form>
+    </div>
+    </div>
+
+
+
+</div>
+
+<div class="add-post-link">                     <!--    **-->
+    <a href="posts/add">Add new Post</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Spring Blog - Edit Post</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #aac4f2;
+            color: black;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<h1>Edit Post</h1>
+
+
+<form th:action="@{'/v1/posts/edit/' + ${post.id}}" method="post" th:object="${post}">
+    <input type="hidden" th:field="*{id}">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" placeholder="Title" th:value="*{title}">
+    <!--  <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>-->
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" placeholder="Description" th:value="*{description}">
+    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+
+    <label for="body">Body:</label>
+    <textarea id="body" name="body" placeholder="Body" th:text="*{body}"></textarea>
+    <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}"></span>
+
+    <input type="submit" value="Save Post">
+</form>
+</body>
+</html>

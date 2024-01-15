@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <title>Spring Blog</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+                background-color: #aac4f2;
+                color: black;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            padding: 40px;
+            border: 1px solid black;
+            box-shadow: 0 0 5px gray;
+            background-color: white;
+            max-width: 500px;
+        }
+
+        .post-form input,
+        .post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .post-form input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .post-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Welcome to Spring Blog</h1>
+<div class="post-form">
+    <form th:object="${post}" method="post" th:action="@{/v1/posts}">
+        <input type="text" th:field="${post.title}" placeholder="Title">
+        <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}">Invalid Title</div>
+        <input type="text" th:field="${post.description}" placeholder="Description">
+        <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Invalid Description </div>
+        <textarea th:field="${post.body}" placeholder="Body"></textarea>        <!--    //space: textarea>input -->
+        <div style="color:red" th:if="${#fields.hasErrors('body')}" th:errors="*{body}">Invalid Body</div>
+        <input type="submit" value="Submit">
+    </form>
+</div>
+</body>
+</html>
